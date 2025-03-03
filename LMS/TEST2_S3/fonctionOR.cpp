@@ -15,6 +15,8 @@
 //-- librairie standart --// 
 #include <iostream>		//-- utilisation des entrées / sorties 
 #include <iomanip>		//-- lib pour la partie affichage 
+#include <cstdint>  // Inclusion requise pour int8_t
+// Correction : Inclusion de <cstdint> pour assurer la compatibilité avec int8_t.
 
 //-- librairie personnelle --// 
 #include "fonctionOR.h"
@@ -34,48 +36,37 @@ void fonctionOR::AfficherInfo()
 	//-- pour la mise en forme de l'affichage utilisation des fonction suivantes : setiosflags(std::ios::left/right), resetiosflags(std::ios::right), std::setw(9) 
     
 	//-- entree A --//
-    //-- info litteral --//
-    std::cout << " A " << " | ";
-    //-- info décimal --//
-    std::cout << entreeA << " | ";
-    //-- info binaire --// 
-    //-- appel de la méthode de convertion binaire --//
-    binaireA = ConversionBinaire(entreeA);
-    //-- affichage de la valeur en binaire --// 
-    std::cout << binaireA << std::endl;
+    // Correction : Calcul de binaireA avant l'affichage pour assurer un ordre logique dans le code.
+    binaireA = ConversionBinaire(entreeA);  // Conversion d'abord
+    //Affiche de la sortie en utilisant setw pour l'indentation des ligne
+    std::cout << " A " << " | " << std::setw(9) << entreeA << " | " << std::setw(9) << binaireA << std::endl;
 
+   
     //-- entree B --// 
-    //-- info litteral --//
-    std::cout << "B" << " | ";
+    // Correction : Calcul de binaireB avant l'affichage pour assurer un ordre logique et correction du paramètre.
+    binaireB = ConversionBinaire(entreeB);  // Correction du paramètre et calcul avant affichage
+    //Affiche de la sortie en utilisant setw pour l'indentation des ligne
+    std::cout << " B " << " | " << std::setw(9) << entreeB << " | " << std::setw(9) << binaireB << std::endl;
 
-    //-- info décimal --//
-    std::cout << entreeB << " | ";
-    //-- info binaire --// 
-
-    //-- appel de la méthode de convertion binaire --//
-    binaireB = ConversionBinaire(entreeA);
-    //-- affichage de la valeur en binaire --// 
-    std::cout << binaireB << std::endl;
 
     //-- Sortie --// 
-    //-- info litteral --//
-    std::cout << " Sortie "  << " | ";
+    std::cout << " Sortie " << " | " << std::setw(9) << output << " | ";
+    std::cout << std::setw(9) << valBinaire << " | " << std::endl;
 
-    //-- info décimal --//
-    std::cout << output << " | ";
     //-- info binaire --// 
-    //-- appel de la méthode de convertion binaire --//
-    OperationBinaire(); 
-
-    //-- affichage de la valeur en binaire --// 
-    std::cout << valBinaire << " | ";
+    // Suppression de OperationBinaire() ici car il doit être exécuté avant AfficherInfo().
 }
 
 void fonctionOR::OperationBinaire()
 {
     int8_t output = 0;
     // operation binaire entre AND entre deux valeur
-    output = entreeA + entreeB;
-    valBinaire = ConversionBinaire(output);
+    output = entreeA | entreeB;
+    // Correction : Ajout d’une validation avant la conversion binaire pour s’assurer que output est correctement mis à jour.
+    if (output >= 0) {
+        // Correction : Remplacement de l’addition par l’opérateur OR binaire (|).
+        valBinaire = ConversionBinaire(output);
+    }
+
 }
 

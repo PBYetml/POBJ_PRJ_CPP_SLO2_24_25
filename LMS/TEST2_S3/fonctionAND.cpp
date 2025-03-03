@@ -55,7 +55,8 @@ void fonctionAND::AfficherInfo()
     //-- info binaire --// 
 
     //-- appel de la méthode de convertion binaire --//
-    binaireB = ConversionBinaire(entreeA);
+    // Correction : Utilisation de "entreeB" au lieu de "entreeA" pour la conversion binaire
+    binaireB = ConversionBinaire(entreeB);
     //-- affichage de la valeur en binaire --// 
     std::cout << binaireB << std::endl;
 
